@@ -65,9 +65,11 @@ inverter([X|XS], R) :- inverter(XS, R0), concatenar(R0, [X], R).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do predicado sublista: SubLista,Lista -> {V,F}
 
-sublista([],L).
-sublista([X|XS], [X|LS]) :- sublista(XS, LS).
-sublista([X|XS], [Y|LS]) :- X \= Y, sublista([X|XS], LS).
+prefixo([], L).
+prefixo([X|XS], [X|YS]) :- prefixo(XS, YS).
+
+sublista(L0, L1) :- prefixo(L0, L1).
+sublista(L0, [_|L1]) :- sublista(L0, L1).
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
