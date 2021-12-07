@@ -30,6 +30,7 @@ soma( X,Y,Z, Soma) :- Soma is X+Y+Z.
 % Máximo divisor comum
 mdc(X,X,X).
 mdc(X,Y,MDC) :-
+    X =\= Y,
     Dif is abs(X-Y),
     min(X,Y,Small),
     mdc(Dif,Small,MDC).
