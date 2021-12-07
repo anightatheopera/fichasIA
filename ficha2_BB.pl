@@ -27,5 +27,17 @@ soma( X,Y,Soma ) :-
 soma( X,Y,Z, Soma) :- Soma is X+Y+Z.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Extensao do predicado soma: X,Y,Z,Soma -> {V,F}
+% Máximo divisor comum
+mdc(X,X,X).
+mdc(X,Y,MDC) :-
+    Dif is abs(X-Y),
+    min(X,Y,Small),
+    mdc(Dif,Small,MDC).
 
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Mínimo múltiplo comum
+
+mmc(X,X,X).
+mmc(X,Y,R) :- Mul is X*Y,
+              mdc(X,Y,MDC),
+              R is Mul/MDC.
