@@ -39,6 +39,8 @@ mdc(X,Y,MDC) :-
 % Mínimo múltiplo comum
 
 mmc(X,X,X).
-mmc(X,Y,R) :- Mul is X*Y,
+mmc(X,Y,R) :- 
+              X =\= Y,
+              Mul is X*Y,
               mdc(X,Y,MDC),
               R is Mul/MDC.
