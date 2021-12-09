@@ -46,7 +46,7 @@ agulosa(Caminhos, Caminho) :-
 
 agulosa(Caminhos, SolucaoCaminho) :-
     obtem_melhor_g(Caminhos,MelhorCaminho),
-    seleciona(MehorCaminho,Caminhos,OutrosCaminhos),
+    remove(MehorCaminho,Caminhos,OutrosCaminhos),
     expande_gulosa(MelhorCaminho,ExpCaminhos),
     append(OutrosCaminhos,ExpCaminhos,NovoCaminhos),
     agulosa(NovoCaminhos,SolucaoCaminho).
@@ -57,14 +57,15 @@ obtem_melhor_g([Caminho1/Custo1/Est1, _/Custo2/Est2|Caminhos], MelhorCaminho) :-
     Est1 =< Est2, !,
     obtem_melhor_g([Caminho1/Custo1/Est1|Caminhos], MelhorCaminho).
 obtem_melhor_g([_|Caminhos], MelhorCaminho) :- obtem_melhor_g(Caminhos, MelhorCaminho).
+
 expande_gulosa(Caminho,ExpCaminhos) :-
     findall(NovoCaminho, adjacente2(Caminho,NovoCaminho),ExpCaminhos).
 
 adjacente2([Nodo|Caminho]/Custo/_, [ProxNodo,Nodo|Caminho]/NovoCusto/Est) :-
     aresta(Nodo,ProxNodo,PassoCusto),
-    \+member(ProxNodo,Caminho),
+    not(member(ProxNodo,Caminho)),
     NovoCusto is Custo + PassoCusto,
     estima(ProxNodo,Est).
 
-seleciona(E,[E|Xs],Xs).
-seleciona(E,[X|Xs],[X|Ys]) :- seleciona(E,Xs,Ys).
+remove(E,[E|Xs],Xs).
+remove(E,[X|Xs],[X|Ys]) :- remove(E,Xs,Ys).
