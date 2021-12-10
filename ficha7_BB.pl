@@ -207,7 +207,7 @@ nao(Questao) :-
     Questao,
 	!,
 	fail.
-nao(_).
+nao(Questao).
 
 membro(X,[X|_]).
 membro(X,[_|Xs]):-
