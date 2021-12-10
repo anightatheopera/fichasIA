@@ -35,7 +35,8 @@ profundidade(Nodo,Historico,[ProxNodo|Caminho],C) :-
 adjacente(Nodo, ProxNodo, C) :- aresta(Nodo,ProxNodo,C).
 adjacente(Nodo, ProxNodo, C) :- aresta(ProxNodo,Nodo,C).
 
-resolve_gulosa(Nodo,Caminho/Custo) :- estima(Nodo, Estima),
+resolve_gulosa(Nodo,Caminho/Custo) :- 
+        estima(Nodo, Estima),
         agulosa([[Nodo]/0/Estima], InvCaminho/Custo/_),
         reverse(InvCaminho, Caminho).
 
