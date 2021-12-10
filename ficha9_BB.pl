@@ -8,18 +8,18 @@
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % PROLOG: definicoes iniciais
 
-:- set_prolog_flag( discontiguous_warnings,off ).
-:- set_prolog_flag( single_var_warnings,off ).
+:- set_prolog_flag(discontiguous_warnings,off).
+:- set_prolog_flag(single_var_warnings,off).
 :- dynamic '-'/1.
 :- dynamic mamal/1.
 :- dynamic bat/1.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
--fly( tweety ).
+-fly( weety).
 
--fly( X ) :-
-    mamal( X ).
+-fly(X) :-
+    mamal(X).
 
 -fly(X) :- mamal(X),not(exception(-fly(X))).
 
@@ -27,11 +27,10 @@
 
 fly(X) :- exception(-fly(X)).
 
-fly( X ) :-
-    bird( X ).
+fly( X ) :- bird( X ).
 
 fly(X) :-
-    bird(X), 
+    bird(X),
     not(exception(fly(X))).
 
 bird(tweety).
@@ -53,10 +52,11 @@ mamal(X) :- bat(X).
 bat(bate).
 dog(boby).
 
-si(Questao, verdadeiro) :- Questao.
-si(Questao, falso) :- -Questao.
-si(Questao, desconhecido) :- not(Questao),
-							 not(-Questao).
+si(Questao,verdadeiro) :- Questao.
+si(Questao,falso) :- -Questao.
+si(Questao,desconhecido) :- 
+    not(Questao),
+	not(-Questao).
 
 siL([],[]).
 siL([Questao|L],[Resposta|S]) :-
