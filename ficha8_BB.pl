@@ -21,8 +21,7 @@ son(carlos,jose).
 % Structural Invariant: doesn't allow duplicate knowlege addition 
 
 +son(F,P) :: (
-    sol((F,P), 
-    (son(F,P)),S),
+    sol((F,P),(son(F,P)),S),
     comp(S,N), 
     N==1
              ).
@@ -33,7 +32,7 @@ son(carlos,jose).
     sol((F,P),(son(F,P),S)),
     comp(S,N),
     N==1     
-            ).
+             ).
 
 +son(F,_) :: (
     sol(Ps,(son(F,Ps),S)),
