@@ -18,7 +18,7 @@ son(joao,jose).
 son(jose,manuel).
 son(carlos,jose).
 
-% Structural Invariant: doesn't allow duplicate knowlege addiction 
+% Structural Invariant: doesn't allow duplicate knowlege addition 
 
 +son(F,P) :: (
     sol((F,P), 
