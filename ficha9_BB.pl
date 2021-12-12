@@ -21,13 +21,15 @@
 -fly(X) :-
     mamal(X).
 
--fly(X) :- mamal(X),not(exception(-fly(X))).
+-fly(X) :- 
+    mamal(X),
+    not(exception(-fly(X))).
 
 -fly(X) :- exception(fly(X)).
 
 fly(X) :- exception(-fly(X)).
 
-fly( X ) :- bird( X ).
+fly(X) :- bird(X).
 
 fly(X) :-
     bird(X),
@@ -56,7 +58,7 @@ si(Questao,verdadeiro) :- Questao.
 si(Questao,falso) :- -Questao.
 si(Questao,desconhecido) :- 
     not(Questao),
-	not(-Questao).
+    not(-Questao).
 
 siL([],[]).
 siL([Questao|L],[Resposta|S]) :-
