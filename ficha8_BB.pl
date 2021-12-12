@@ -18,10 +18,11 @@ son(joao,jose).
 son(jose,manuel).
 son(carlos,jose).
 
-% Structural Invariant: doesn't allow duplicate knowlege addition 
+% Structural Invariant: doesn't allow duplicate knowlege addiction 
 
 +son(F,P) :: (
-    sol((F,P),(son(F,P)),S),
+    findall((F,P), 
+    (son(F,P)),S),
     comp(S,N), 
     N==1
              ).
@@ -29,19 +30,19 @@ son(carlos,jose).
 % Invariante Referencial: doesn's allow more than 2 x for the same y (father/son)
 
 +son(F,P) :: (   
-    sol((F,P),(son(F,P),S)),
+    findall((F,P),(son(F,P),S)),
     comp(S,N),
     N==1     
-             ).
+            ).
 
 +son(F,_) :: (
-    sol(Ps,(son(F,Ps),S)),
+    findall(Ps,(son(F,Ps),S)),
     comp(S,N),
     N=<2
              ).
 
 -son(F,P) :: (
-    sol(F,(age(F,I)),S),
+    findall(F,(age(F,I)),S),
     comp(S,N),
     N == 0
              ).
@@ -49,22 +50,20 @@ son(carlos,jose).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do predicado que permite a evolucao do conhecimento
 
-evolution(Term) :- 
-    sol(Invariant,+Term::Invariant,List), 
-    rem(Term),
+evolucao(Term) :- 
+    findall(Invariant,+Term::Invariant,List), 
+    insercao(Term),
     test(List).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Auxiliar
 
-test([]).
-test([R|Lr]) :- R, test(Lr).
+evolucao(Termo) :-
+    findall(Invariante,+Termo::Invariante,Lista),
+    insercao(Termo),
+    teste(Lista).
 
-sol(X,P,S) :- findall(X,P,S).
-
-rem(Term) :- retract(Term).
-rem(Term) :- 
-    assert(Term), 
-    !, 
-    fail.
-
+insercao(Termo) :-
+    assert(Termo).
+insercao(Termo) :-
+    retract(Termo),!,fail.
