@@ -4,51 +4,53 @@
 :- dynamic service/2.
 :- dynamic doing/4.
 
--service(_,Name) :- 
-    not(service(_,Name)),
-    not(exception(service(_,Name))).
+-servico(_,Name) :- 
+    not(servico(_,A)),
+    not(exception(servico(_,A))).
 	
--doing(Do,Doer,Doet,Day) :-
-	not(doing(Do,Doer,Doet,Day)),
-	not(exception(doing(Do,Doer,Doet,Day))).
+-ato(A,B,C,D) :-
+	not(ato(A,B,C,D)),
+	not(exception(ato(A,B,C,D))).
 
-service(orthopedics,amelia).
-service(obstetrics,ana).
-service(obstetrics,maria).
-service(obstetrics,mariana).
-service(geriartrics,sofia).
-service(geriartrics,susana).
-service(x007,teodora).
-service(np9,zulmira).
+servico(ortopedia,amelia).
+servico(obstetricia,ana).
+servico(obstetricia,maria).
+servico(obstetricia,mariana).
+servico(geriatria,sofia).
+servico(geriatria,susana).
+servico(z7,teodora).
+servico(np9,zulmira).
 
-doing(bandaid,ana,joana,sabado).
-doing(plaster,amelia,jose,domingo).
-doing(x017,mariana,jose,domingo).
-doing(domicilio,maria,x121,x251).
-doing(stitching,x313,josue,segunda).
+exception(servico(_,E)) :- servico(z7,E).
+exception(servico(_,E)) :- servico(np9,E).
 
 null(np9).
 
-exception(service(_,E)) :- service(x007,E).
-exception(service(_,E)) :- service(np9,E).
-exception(doing(A,E,_,_)) :- doing(A,E,x121,x251).
-exception(doing(A,_,U,D)) :- doing(A,x313,U,D).
-exception(doing(_,E,U,D)) :- doing(x017,E,U,D).
-exception(doing(domicilio,susana,joao,segunda)).
-exception(doing(domicilio,susana,jose,segunda)).
-exception(doing(stitching,maria,josefa,terca)).
-exception(doing(stitching,maria,josefa,sexta)).
-exception(doing(stitching,mariana,josefa,terca)).
-exception(doing(stitching,mariana,josefa,sexta)).
-exception(doing(bandaid,ana,jacinta,D)) :- member(D,[segunda,terca,quarta,quinta,sexta]).
+ato(penso,ana,joana,sabado).
+ato(gesso,amelia,jose,domingo).
+ato(z17,mariana,joaquina,domingo).
+ato(domicilio,maria,c21,d51).
+ato(sutura,t13,josue,segunda).
+
+exception(ato(_,A,B,C)) :- ato(z17,A,B,C).
+exception(ato(A,B,_,_)) :- ato(A,B,c21,d51).
+exception(ato(A,_,C,D)) :- ato(A,t13,C,D).
+exception(ato(domicilio,susana,joao,segunda)).
+exception(ato(domicilio,susana,jose,segunda)).
+exception(ato(sutura,maria,josefa,terca)).
+exception(ato(sutura,maria,josefa,sexta)).
+exception(ato(sutura,mariana,josefa,terca)).
+exception(ato(sutura,mariana,josefa,sexta)).
+exception(ato(bandaid,ana,jacinta,D)) :- member(D,[segunda,terca,quarta,quinta,sexta]).
+
 
 %Invariantes
-+doing(A,P,U,_) :: (
-    D\=feriado,
-    findall((A,P,U,D),(doing(A,P,U,D)),S),
++ato(A,E,U,D) :: (
+    D==feriado,
+    findall((A,E,U,D),ato((A,E,U,D)),S),
     length(S,N),
-    N==1
-                  ).
+    N==0
+                 ).
 
 +service(S,_) :: (
     findall(S,(service(S,zulmira),not(null(S))),L),
