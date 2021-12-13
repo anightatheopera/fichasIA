@@ -11,59 +11,62 @@
 :- set_prolog_flag(discontiguous_warnings,off).
 :- set_prolog_flag(single_var_warnings,off).
 :- dynamic '-'/1.
-:- dynamic mamal/1.
-:- dynamic bat/1.
+:- dynamic mamifero/1.
+:- dynamic morcego/1.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
--fly(tweety).
+excecao(voa(X)) :-
+  morcego(X).
+excecao(-voa(X)) :-
+  avestruz(X).
+excecao(-voa(X)) :-
+  pinguim(X).
 
--fly(X) :-
-    mamal(X).
+voa(X) :-
+  ave(X),
+  not(excecao(-voa(X))).
 
--fly(X) :- 
-    mamal(X),
-    not(exception(-fly(X))).
+voa(X) :-
+  excecao(voa(X)).
 
--fly(X) :- exception(fly(X)).
+-voa(X) :-
+  mamifero(X),
+  not(excecao(voa(X))).
 
-fly(X) :- exception(-fly(X)).
+-voa(X) :-
+  excecao(-voa(X)).
 
-fly(X) :- bird(X).
+-voa('Tweety').
 
-fly(X) :-
-    bird(X),
-    not(exception(fly(X))).
+ave(X) :- canario(X).
+ave(X) :- periquito(X).
+ave(X) :- avestruz(X).
+ave(X) :- pinguim(X).
+ave('Pitigui').
+avestruz('Truz').
+pinguim('Pingu').
+periquito('Faisca').
+canario('Piupiu').
 
-bird(tweety).
+mamifero('Silvestre').
+mamifero(X) :- cao(X).
+mamifero(X) :- gato(X).
+mamifero(X) :- morcego(X).
+gato('Bichano').
+cao('Boby').
+morcego('Batman').
 
-bird(X) :- canary(X).
-bird(X) :- ostrich(X).
-bird(X) :- penguin(X).
-
-canary(piupiu).
-ostrich(trux).
-penguin(pingu).
-
-mamal(silvestre).
-
-mamal(X) :- dog(X).
-mamal(X) :- cat(X).
-mamal(X) :- bat(X).
-
-bat(bate).
-dog(boby).
-
-si(Questao,verdadeiro) :- Questao.
-si(Questao,falso) :- -Questao.
-si(Questao,desconhecido) :- 
+demo(Questao,verdadeiro) :- Questao.
+demo(Questao,falso) :- -Questao.
+demo(Questao,desconhecido) :-
     not(Questao),
     not(-Questao).
 
-siL([],[]).
-siL([Questao|L],[Resposta|S]) :-
+demoL([],[]).
+demoL([Questao|L],[Resposta|S]) :-
     si(Questao,Resposta),
-    siL(L,S).
+    demoL(L,S).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
